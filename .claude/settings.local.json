@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:opwnclaw-beep.github.io)",
+      "WebFetch(domain:jarwix.com)",
+      "Bash(npx next *)",
+      "WebFetch(domain:demos.gsap.com)",
+      "WebFetch(domain:codepen.io)",
+      "Bash(npx tsc *)"
+    ]
+  }
+}

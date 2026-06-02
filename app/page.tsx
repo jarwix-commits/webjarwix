@@ -1,0 +1,31 @@
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import Ticker from "./components/Ticker";
+import BentoGallery from "./components/BentoGallery";
+import HorizontalScrollText from "./components/HorizontalScrollText";
+import Services from "./components/Services";
+import About from "./components/About";
+import Process from "./components/Process";
+import AuditCTA from "./components/AuditCTA";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
+
+export default function Home() {
+  return (
+    <>
+      <Navbar />
+      <main>
+        <Hero />
+        <Ticker />
+        <BentoGallery />
+        <HorizontalScrollText />
+        <Services />
+        <About />
+        <Process />
+        <AuditCTA />
+        <Contact />
+      </main>
+      <Footer />
+    </>
+  );
+}
