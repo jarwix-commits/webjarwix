@@ -4,6 +4,7 @@ import Ticker from "./components/Ticker";
 import BentoGallery from "./components/BentoGallery";
 import HorizontalScrollText from "./components/HorizontalScrollText";
 import Services from "./components/Services";
+import WorkGallery from "./components/WorkGallery";
 import About from "./components/About";
 import Process from "./components/Process";
 import AuditCTA from "./components/AuditCTA";
@@ -20,6 +21,7 @@ export default function Home() {
         <BentoGallery />
         <HorizontalScrollText />
         <Services />
+        <WorkGallery />
         <About />
         <Process />
         <AuditCTA />
