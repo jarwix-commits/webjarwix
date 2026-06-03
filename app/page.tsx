@@ -7,7 +7,7 @@ import Services from "./components/Services";
 import WorkGallery from "./components/WorkGallery";
 import About from "./components/About";
 import Process from "./components/Process";
-import AuditCTA from "./components/AuditCTA";
+import ParticleVortex from "./components/ParticleVortex";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
@@ -24,7 +24,7 @@ export default function Home() {
         <WorkGallery />
         <About />
         <Process />
-        <AuditCTA />
+        <ParticleVortex />
         <Contact />
       </main>
       <Footer />
