@@ -38,20 +38,6 @@ export default function Process() {
   const sectionRef = useRef<HTMLElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const [sizeKey, setSizeKey] = useState(0);
-
-  useEffect(() => {
-    let timer: ReturnType<typeof setTimeout>;
-    const onResize = () => {
-      clearTimeout(timer);
-      timer = setTimeout(() => setSizeKey((k) => k + 1), 250);
-    };
-    window.addEventListener("resize", onResize);
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener("resize", onResize);
-    };
-  }, []);
 
   useGSAP(
     () => {
@@ -75,6 +61,7 @@ export default function Process() {
           pin: true,
           end: () => `+=${track.scrollWidth - wrapper.offsetWidth}`,
           scrub: 1,
+          anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             gsap.set(".progress-fill", { scaleX: self.progress });
@@ -113,7 +100,7 @@ export default function Process() {
         );
       });
     },
-    { scope: sectionRef, dependencies: [sizeKey] }
+    { scope: sectionRef }
   );
 
   return (
@@ -125,6 +112,18 @@ export default function Process() {
         className="relative overflow-hidden flex flex-col"
         style={{ height: "80vh" }}
       >
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
+          <img
+            src="/generated_image/lone figure standing on a dark hilltop holding a single.jpeg"
+            alt="Process Background"
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black via-black/10 to-black" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/10 to-black" />
+        </div>
+
         {/* Heading — always visible, no entry animation (avoids pin-jump glitch) */}
         <div className="shrink-0 px-4 sm:px-8 md:px-12 pt-20 sm:pt-12 pb-4 sm:pb-5">
           <p

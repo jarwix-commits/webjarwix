@@ -13,7 +13,7 @@ const data = {
   description:
     "We map your business processes and replace manual, repetitive work with intelligent systems — CRM workflows, AI agents, WhatsApp automation, and end-to-end hyper-automation that compounds efficiency over time.",
   iconName: "robot" as const,
-  heroImage: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1000&q=85&auto=format&fit=crop",
+  heroImage: "/generated_image/lone engineer in dark control tower, single holographic display glowing amber, dark city below, minimal, cinematic aerial.jpeg",
   color: "#FF5A1F",
   what: [
     {

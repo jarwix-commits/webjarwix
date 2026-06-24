@@ -1,6 +1,7 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../app/generated/prisma"
+  provider      = "prisma-client"
+  output        = "../app/generated/prisma"
+  binaryTargets = ["native", "rhel-openssl-1.0.x", "rhel-openssl-3.0.x", "linux-musl", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
@@ -34,13 +35,18 @@ enum LeadStatus {
 // ─── Audit Requests (free growth audit) ────────────────────────────────────
 
 model AuditRequest {
-  id        String        @id @default(cuid())
-  email     String
-  name      String?
-  company   String?
-  status    AuditStatus   @default(PENDING)
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
+  id               String      @id @default(cuid())
+  email            String
+  name             String?
+  company          String?
+  phoneNumber      String?
+  websiteUrl       String?
+  revenue          String?
+  primaryGoal      String?
+  biggestChallenge String?     @db.Text
+  status           AuditStatus @default(PENDING)
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
 
   @@index([email])
   @@index([createdAt])
@@ -77,7 +83,23 @@ model User {
   updatedAt DateTime  @updatedAt
   sessions  Session[]
 
+  orgId String?
+  org   Organization? @relation(fields: [orgId], references: [id])
+
   @@index([email])
+  @@index([orgId])
+}
+
+// ─── Organizations ───────────────────────────────────────────────────────────
+
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users User[]
 }
 
 enum Role {
@@ -97,4 +119,16 @@ model Session {
 
   @@index([token])
   @@index([userId])
+}
+
+// ─── Portfolio Projects ──────────────────────────────────────────────────────
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String   @db.Text
+  imageUrl    String
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

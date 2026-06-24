@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { RiArrowRightLine } from "@remixicon/react";
+import MultiStepAuditForm from "./MultiStepAuditForm";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -78,7 +79,6 @@ export default function AuditCTA() {
               className="audit-badge inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8"
               style={{
                 background: "rgba(255,90,31,0.12)",
-                border: "1px solid rgba(255,90,31,0.3)",
                 opacity: 0,
               }}
             >
@@ -117,41 +117,9 @@ export default function AuditCTA() {
               the quick wins and long-term growth plays tailored to your brand.
             </p>
 
-            {/* CTA */}
-            <div className="audit-cta flex flex-col sm:flex-row items-center justify-center gap-3" style={{ opacity: 0 }}>
-              <a
-                href="#contact"
-                className="group inline-flex items-center gap-2 rounded-full pl-6 pr-2 py-2 font-semibold text-sm transition-all duration-300 hover:gap-3"
-                style={{
-                  background: "linear-gradient(120deg, #0E0E0E, #FF5A1F)",
-                  color: "#FFF5F0",
-                  border: "1px solid rgba(255,90,31,0.4)",
-                }}
-              >
-                Claim Free Audit
-                <span
-                  className="flex items-center justify-center w-9 h-9 rounded-full transition-transform duration-300 group-hover:scale-110"
-                  style={{ background: "rgba(255,245,240,0.1)" }}
-                >
-                  <RiArrowRightLine size={16} style={{ color: "#FFF5F0" }} />
-                </span>
-              </a>
-
-              <a
-                href="https://calendly.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium transition-colors duration-200"
-                style={{ color: "rgba(255,245,240,0.5)" }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.color = "#FFF5F0")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = "rgba(255,245,240,0.5)")
-                }
-              >
-                Or schedule a meeting →
-              </a>
+            {/* CTA Form */}
+            <div className="audit-cta max-w-2xl mx-auto" style={{ opacity: 0 }}>
+              <MultiStepAuditForm />
             </div>
           </div>
         </div>

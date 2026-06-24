@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Flip } from "gsap/Flip";
+import Image from "next/image";
 import {
   RiMegaphoneLine,
   RiGlobalLine,
@@ -18,45 +19,33 @@ gsap.registerPlugin(useGSAP, ScrollTrigger, Flip);
 export default function BentoGallery() {
   const sectionRef = useRef<HTMLElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
-  const [sizeKey, setSizeKey] = useState(0);
-
-  // Re-run Flip context on resize (positions change)
-  useEffect(() => {
-    let timer: ReturnType<typeof setTimeout>;
-    const onResize = () => {
-      clearTimeout(timer);
-      timer = setTimeout(() => setSizeKey((k) => k + 1), 250);
-    };
-    window.addEventListener("resize", onResize);
-    return () => { clearTimeout(timer); window.removeEventListener("resize", onResize); };
-  }, []);
 
   useGSAP(
     () => {
       const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const grid = gridRef.current;
-      const section = sectionRef.current;
-      if (!grid || !section) return;
+      if (!grid) return;
 
-      // Heading fade-in (always)
-      if (!prefersReduced) {
-        gsap.fromTo(
-          ".bg-heading-word",
-          { y: 40, opacity: 0 },
-          {
-            y: 0, opacity: 1, duration: 0.7, ease: "power3.out", stagger: 0.07,
-            scrollTrigger: { trigger: ".bg-heading", start: "top 85%" },
-          }
-        );
-      } else {
+      // ── Reduced motion ──────────────────────────────────────
+      if (prefersReduced) {
+        grid.classList.add("bento-final");
         gsap.set(".bg-heading-word", { opacity: 1, y: 0 });
-        gsap.set(".bg-card", { opacity: 1 });
-        return;
+        gsap.set(".bg-card", { autoAlpha: 1 });
+        return () => grid.classList.remove("bento-final");
       }
 
-      // ── Flip morph: desktop only ──────────────────────────────
+      // ── Heading: always animate on scroll ──────────────────
+      gsap.fromTo(
+        ".bg-heading-word",
+        { y: 45, opacity: 0 },
+        {
+          y: 0, opacity: 1, duration: 0.75, ease: "power3.out", stagger: 0.08,
+          scrollTrigger: { trigger: ".bg-heading", start: "top 83%" },
+        }
+      );
+
+      // ── Mobile: stagger reveal, no Flip ────────────────────
       if (window.innerWidth < 640) {
-        // Mobile: simple stagger reveal, no flip
         gsap.fromTo(
           ".bg-card",
           { scale: 0.88, opacity: 0 },
@@ -69,35 +58,35 @@ export default function BentoGallery() {
         return;
       }
 
-      // 1. Apply final class to capture bento positions
-      grid.classList.add("bento-final");
-      const flipState = Flip.getState(grid.querySelectorAll(".bg-card"));
-      grid.classList.remove("bento-final");
+      // ── Desktop: Standard GPU-accelerated stagger reveal ─────────────
+      const cards = gsap.utils.toArray<HTMLElement>(".bg-card");
+      gsap.set(cards, { autoAlpha: 0 });
 
-      // 2. Make all cards visible in the compact initial state
-      gsap.set(".bg-card", { opacity: 1 });
+      const revealBento = () => {
+        gsap.fromTo(
+          cards,
+          { autoAlpha: 0, y: 30, scale: 0.95 },
+          {
+            autoAlpha: 1, 
+            y: 0, 
+            scale: 1,
+            duration: 0.8, 
+            ease: "back.out(1.2)",
+            stagger: { each: 0.05, from: "center" },
+            overwrite: "auto"
+          }
+        );
+      };
 
-      // 3. Flip.to animates from current (compact) → captured (bento) positions
-      const flip = Flip.to(flipState, {
-        ease: "expo.inOut",
-        duration: 1,
-        simple: true,
+      ScrollTrigger.create({
+        trigger: grid,
+        start: "top 80%",
+        once: true,
+        onEnter: revealBento,
+        invalidateOnRefresh: true,
       });
-
-      // 4. Drive with ScrollTrigger scrub + pin
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "center center",
-          end: "+=120%",
-          scrub: 1,
-          pin: section,
-          invalidateOnRefresh: true,
-        },
-      });
-      tl.add(flip);
     },
-    { scope: sectionRef, dependencies: [sizeKey] }
+    { scope: sectionRef }
   );
 
   const accent = "#FF5A1F";
@@ -144,7 +133,7 @@ export default function BentoGallery() {
         */}
         <div
           ref={gridRef}
-          className="bento-flip-grid grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5"
+          className="bento-flip-grid bento-final grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5"
         >
           {/* ── 100+ stat ── mobile col1 row1 */}
           <div
@@ -182,17 +171,17 @@ export default function BentoGallery() {
                         h-44 col-start-1 col-end-3 row-start-2"
             style={{ opacity: 0 }}
           >
-            <img
-              src="https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=900&q=80&auto=format&fit=crop"
+            <Image
+              src="/generated_image/lone figure standing on a dark floating rock island in deep space, holding a glowing tablet,.jpeg"
               alt="Digital Marketing"
-              className="absolute inset-0 w-full h-full object-cover"
-              style={{ filter: "brightness(0.5) saturate(0.75)" }}
-              loading="lazy"
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 100vw, 50vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/42 via-black/10 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
               <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center mb-2"
-                style={{ background: "rgba(255,90,31,0.2)", border: "1px solid rgba(255,90,31,0.3)" }}>
+                style={{ background: "rgba(255,90,31,0.2)", }}>
                 <RiMegaphoneLine size={12} style={{ color: accent }} />
               </div>
               <p className="uppercase text-xs font-semibold leading-tight"
@@ -207,17 +196,17 @@ export default function BentoGallery() {
                         h-44 col-start-1 col-end-3 row-start-3"
             style={{ opacity: 0 }}
           >
-            <img
-              src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80&auto=format&fit=crop"
+            <Image
+              src="/generated_image/lone robotic arm emerging from dark void, single glowing amber.jpeg"
               alt="Automation & AI"
-              className="absolute inset-0 w-full h-full object-cover"
-              style={{ filter: "brightness(0.5) saturate(0.75)" }}
-              loading="lazy"
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 100vw, 50vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/42 via-black/10 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
               <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center mb-2"
-                style={{ background: "rgba(255,90,31,0.2)", border: "1px solid rgba(255,90,31,0.3)" }}>
+                style={{ background: "rgba(255,90,31,0.2)", }}>
                 <RiRobotLine size={12} style={{ color: accent }} />
               </div>
               <p className="uppercase text-xs font-semibold leading-tight"
@@ -228,35 +217,51 @@ export default function BentoGallery() {
 
           {/* ── Web & SEO ── mobile col1 row4 */}
           <div
-            className="bg-card bfc-web rounded-2xl p-4 sm:p-5 flex flex-col justify-between
+            className="bg-card bfc-web rounded-2xl overflow-hidden relative
                         h-36 col-start-1 row-start-4"
-            style={{ background: card, border: "1px solid rgba(255,90,31,0.10)", opacity: 0 }}
+            style={{ opacity: 0 }}
           >
-            <div className="w-7 h-7 rounded-xl flex items-center justify-center"
-              style={{ background: "rgba(255,90,31,0.10)", border: "1px solid rgba(255,90,31,0.18)" }}>
-              <RiGlobalLine size={14} style={{ color: accent }} />
-            </div>
-            <div>
+            <Image
+              src="/generated_image/single glowing wireframe structure rising from dark ocean, one tiny figure beside it, amber light, vast empty sky, cinematic aerial.jpeg"
+              alt="Web & SEO"
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 50vw, 25vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
+              <div className="w-7 h-7 rounded-xl flex items-center justify-center mb-2"
+                style={{ background: "rgba(255,90,31,0.2)", }}>
+                <RiGlobalLine size={14} style={{ color: accent }} />
+              </div>
               <p className="uppercase text-[11px] font-semibold leading-tight mb-1"
                 style={{ fontFamily: '"Hanson Bold", serif', color: "#FFF5F0" }}>Web & SEO</p>
-              <p className="text-[10px]" style={{ color: "rgba(255,245,240,0.45)" }}>Speed · Conversions</p>
+              <p className="text-[10px]" style={{ color: "rgba(255,245,240,0.55)" }}>Speed · Conversions</p>
             </div>
           </div>
 
           {/* ── Creative Design ── mobile col2 row4 */}
           <div
-            className="bg-card bfc-creat rounded-2xl p-4 sm:p-5 flex flex-col justify-between
+            className="bg-card bfc-creat rounded-2xl overflow-hidden relative
                         h-36 col-start-2 row-start-4"
-            style={{ background: card, border: "1px solid rgba(255,90,31,0.10)", opacity: 0 }}
+            style={{ opacity: 0 }}
           >
-            <div className="w-7 h-7 rounded-xl flex items-center justify-center"
-              style={{ background: "rgba(255,90,31,0.10)", border: "1px solid rgba(255,90,31,0.18)" }}>
-              <RiPenNibLine size={14} style={{ color: accent }} />
-            </div>
-            <div>
+            <Image
+              src="/generated_image/artist standing before single enormous blank canvas glowing amber, dark studio, minimal.jpeg"
+              alt="Creative Design"
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 50vw, 25vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
+              <div className="w-7 h-7 rounded-xl flex items-center justify-center mb-2"
+                style={{ background: "rgba(255,90,31,0.2)", }}>
+                <RiPenNibLine size={14} style={{ color: accent }} />
+              </div>
               <p className="uppercase text-[11px] font-semibold leading-tight mb-1"
                 style={{ fontFamily: '"Hanson Bold", serif', color: "#FFF5F0" }}>Creative Design</p>
-              <p className="text-[10px]" style={{ color: "rgba(255,245,240,0.45)" }}>Brands to remember</p>
+              <p className="text-[10px]" style={{ color: "rgba(255,245,240,0.55)" }}>Brands to remember</p>
             </div>
           </div>
 
@@ -289,7 +294,7 @@ export default function BentoGallery() {
               Elevate with AI.
             </p>
             <a
-              href="#services"
+              href="/services"
               className="inline-flex items-center gap-1.5 text-xs font-semibold hover:gap-2.5 transition-all duration-200 whitespace-nowrap"
               style={{ color: accent }}
             >

@@ -3,12 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { RiArrowRightLine, RiMenuLine, RiCloseLine } from "@remixicon/react";
+import Link from "next/link";
+import MultiStepAuditForm from "./MultiStepAuditForm";
 
 const navLinks = [
   { label: "Services", href: "/services" },
+  { label: "Portfolio", href: "/portfolio" },
   { label: "About", href: "/about" },
-  { label: "Process", href: "#process" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
@@ -16,6 +18,7 @@ export default function Navbar() {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isAuditModalOpen, setIsAuditModalOpen] = useState(false);
 
   useEffect(() => {
     gsap.fromTo(
@@ -27,6 +30,12 @@ export default function Navbar() {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const handleOpenAudit = () => setIsAuditModalOpen(true);
+    window.addEventListener("open-audit-modal", handleOpenAudit);
+    return () => window.removeEventListener("open-audit-modal", handleOpenAudit);
   }, []);
 
   useEffect(() => {
@@ -64,16 +73,16 @@ export default function Navbar() {
           }}
         >
           {/* Logo */}
-          <a href="/" className="flex items-center shrink-0">
+          <Link href="/" className="flex items-center shrink-0">
             <img src="/logo.svg" alt="Jarwix" className="h-5 w-auto" />
-          </a>
+          </Link>
 
           <div className="hidden sm:block w-px h-4 bg-white/10" />
 
           {/* Desktop Links */}
           <nav className="hidden sm:flex items-center gap-5">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className="text-xs font-medium transition-colors duration-200"
@@ -82,38 +91,36 @@ export default function Navbar() {
                 onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,245,240,0.6)")}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
           {/* CTA — desktop */}
-          <a
-            href="#audit"
-            className="hidden sm:inline-flex group items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold transition-all duration-300 hover:gap-2.5 ml-1"
+          <button
+            onClick={() => setIsAuditModalOpen(true)}
+            className="hidden sm:inline-flex group items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold transition-all duration-300 hover:gap-2.5 ml-1 cursor-pointer"
             style={{
               background: "linear-gradient(120deg, #0E0E0E, #FF5A1F)",
               color: "#FFF5F0",
-              border: "1px solid rgba(255,90,31,0.3)",
-            }}
+              }}
           >
             Free Audit
             <RiArrowRightLine size={12} />
-          </a>
+          </button>
 
           {/* Mobile: CTA + hamburger */}
           <div className="flex sm:hidden items-center gap-2 ml-auto">
-            <a
-              href="#audit"
-              className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[11px] font-semibold"
+            <button
+              onClick={() => setIsAuditModalOpen(true)}
+              className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[11px] font-semibold cursor-pointer"
               style={{
                 background: "linear-gradient(120deg, #0E0E0E, #FF5A1F)",
                 color: "#FFF5F0",
-                border: "1px solid rgba(255,90,31,0.3)",
-              }}
+                }}
             >
               Free Audit
               <RiArrowRightLine size={12} />
-            </a>
+            </button>
 
             <button
               onClick={() => setMenuOpen((v) => !v)}
@@ -148,7 +155,7 @@ export default function Navbar() {
         >
           <nav className="flex flex-col gap-1">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 onClick={handleLinkClick}
@@ -165,7 +172,7 @@ export default function Navbar() {
               >
                 {link.label}
                 <RiArrowRightLine size={14} style={{ opacity: 0.4 }} />
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -180,6 +187,22 @@ export default function Navbar() {
             >
               info@jarwix.com
             </a>
+          </div>
+        </div>
+      )}
+
+      {/* Free Audit Modal */}
+      {isAuditModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4" style={{ background: "rgba(0,0,0,0.8)", backdropFilter: "blur(8px)" }}>
+          <div className="relative w-full max-w-lg bg-[#0A0A0A] border border-[rgba(255,90,31,0.2)] rounded-3xl p-8 shadow-2xl overflow-hidden">
+            <button
+              onClick={() => setIsAuditModalOpen(false)}
+              className="absolute top-4 right-4 p-2 text-white/50 hover:text-[#FF5A1F] transition-colors cursor-pointer z-10"
+            >
+              <RiCloseLine size={24} />
+            </button>
+
+            <MultiStepAuditForm isModal={true} onClose={() => setIsAuditModalOpen(false)} />
           </div>
         </div>
       )}

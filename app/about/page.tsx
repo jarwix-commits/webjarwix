@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
+import Image from "next/image";
 import { RiArrowRightLine, RiCheckLine } from "@remixicon/react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -54,10 +55,40 @@ export default function AboutPage() {
       const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (prefersReduced) return;
 
-      // Hero
-      gsap.fromTo(".ab-hero-label", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out", delay: 0.3 });
-      gsap.fromTo(".ab-hero-word", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", stagger: 0.07, delay: 0.45 });
-      gsap.fromTo(".ab-hero-sub", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out", delay: 0.9 });
+      const isLoaderActive = document.querySelector(".ldr-tagline") !== null;
+      const initialDelay = isLoaderActive ? 2.6 : 0.1;
+
+      // Hero timeline
+      const tl = gsap.timeline({ delay: initialDelay });
+
+      tl.fromTo(
+        ".ab-hero-label",
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }
+      );
+
+      // Character split animation for the main heading
+      tl.fromTo(
+        ".ab-split-char",
+        { y: 100, opacity: 0, rotateZ: 10, scale: 0.9 },
+        {
+          y: 0,
+          opacity: 1,
+          rotateZ: 0,
+          scale: 1,
+          duration: 1.2,
+          stagger: 0.03,
+          ease: "power4.out"
+        },
+        "-=0.5"
+      );
+
+      tl.fromTo(
+        ".ab-hero-sub",
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" },
+        "-=0.8"
+      );
 
       // Stats counters
       stats.forEach((stat, i) => {
@@ -105,16 +136,48 @@ export default function AboutPage() {
     { scope: pageRef }
   );
 
+  const splitChars = (text: string, highlightWord?: string) => {
+    return text.split("").map((char, i) => {
+      // Check if this character is part of the highlighted word "Jarwix."
+      const isJ = highlightWord && char === "J" && text.includes("Jarwix.");
+      
+      return (
+        <span
+          key={i}
+          className="ab-split-char inline-block"
+          style={{ 
+            whiteSpace: char === " " ? "pre" : "normal",
+            color: isJ ? "#FF5A1F" : "inherit"
+          }}
+        >
+          {char}
+        </span>
+      );
+    });
+  };
+
   return (
     <div ref={pageRef} className="bg-black min-h-screen">
 
       {/* ── Hero ───────────────────────────────────────────────────── */}
       <section className="relative min-h-[70vh] flex flex-col justify-end px-4 sm:px-8 md:px-12 pb-16 sm:pb-24 pt-36 sm:pt-44 overflow-hidden">
+        {/* Abstract Background Image */}
+        <div className="absolute inset-0 z-0 pointer-events-none opacity-40 mix-blend-screen" style={{ WebkitMaskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)', maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)' }}>
+          <Image
+            src="/generated_image/about_abstract_hero_bg.png"
+            alt="Abstract Background"
+            fill
+            className="object-cover object-center"
+            priority
+            sizes="100vw"
+          />
+        </div>
+
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none z-0"
           style={{ background: "radial-gradient(ellipse 70% 55% at 30% 50%, rgba(255,90,31,0.08) 0%, transparent 70%)" }}
         />
-        <div className="bg-noise absolute inset-0 opacity-[0.07] pointer-events-none" />
+        <div className="bg-noise absolute inset-0 opacity-[0.07] pointer-events-none z-0" />
 
         <div className="relative z-10 max-w-7xl mx-auto w-full">
           <p
@@ -127,13 +190,8 @@ export default function AboutPage() {
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.88] mb-8 max-w-4xl"
             style={{ fontFamily: '"Hanson Bold", serif', color: "#FFF5F0" }}
           >
-            {["We are", "Jarwix."].map((w, i) => (
-              <span key={i} className="ab-hero-word block" style={{ opacity: 0 }}>
-                {i === 1
-                  ? <><span style={{ color: "#FF5A1F" }}>J</span>arwix.</>
-                  : w}
-              </span>
-            ))}
+            <div className="overflow-hidden pb-2 -mb-2">{splitChars("We are")}</div>
+            <div className="overflow-hidden pb-2 -mb-2">{splitChars("Jarwix.", "Jarwix.")}</div>
           </h1>
           <p
             className="ab-hero-sub text-sm sm:text-base leading-relaxed max-w-xl"
@@ -216,14 +274,13 @@ export default function AboutPage() {
           </div>
           <div className="ab-story-img relative rounded-3xl overflow-hidden aspect-[4/3]" style={{ opacity: 0 }}>
             <img
-              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900&q=85&auto=format&fit=crop"
+              src="/generated_image/small team of three figures huddled around a single glowing.jpeg"
               alt="Jarwix team collaborating"
               className="w-full h-full object-cover"
-              style={{ filter: "brightness(0.6) saturate(0.8)" }}
               loading="lazy"
             />
             <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(255,90,31,0.12) 0%, transparent 60%)" }} />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
           </div>
         </div>
       </section>
@@ -306,52 +363,48 @@ export default function AboutPage() {
           <div className="ab-gallery grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="ab-img sm:col-span-2 rounded-2xl overflow-hidden h-56 sm:h-72 relative" style={{ opacity: 0 }}>
               <img
-                src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1000&q=85&auto=format&fit=crop"
+                src="/generated_image/two figures standing in front of a single illuminated.jpeg"
                 alt="Team strategy session"
                 className="w-full h-full object-cover"
-                style={{ filter: "brightness(0.65) saturate(0.8)" }}
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
               <div className="absolute bottom-5 left-6">
                 <p className="text-[10px] tracking-widest uppercase font-semibold" style={{ color: "rgba(255,90,31,0.8)" }}>Strategy sessions</p>
               </div>
             </div>
             <div className="ab-img rounded-2xl overflow-hidden h-56 sm:h-72 relative" style={{ opacity: 0 }}>
               <img
-                src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&q=85&auto=format&fit=crop"
+                src="/generated_image/lone figure moving a single glowing piece across a dark.jpeg"
                 alt="Campaign planning"
                 className="w-full h-full object-cover"
-                style={{ filter: "brightness(0.6) saturate(0.8)" }}
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
               <div className="absolute bottom-5 left-6">
                 <p className="text-[10px] tracking-widest uppercase font-semibold" style={{ color: "rgba(255,90,31,0.8)" }}>Campaign planning</p>
               </div>
             </div>
             <div className="ab-img rounded-2xl overflow-hidden h-56 sm:h-72 relative" style={{ opacity: 0 }}>
               <img
-                src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=600&q=85&auto=format&fit=crop"
+                src="/generated_image/tiny person standing at the base of a single enormous.jpeg"
                 alt="Data analytics"
                 className="w-full h-full object-cover"
-                style={{ filter: "brightness(0.6) saturate(0.75)" }}
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
               <div className="absolute bottom-5 left-6">
                 <p className="text-[10px] tracking-widest uppercase font-semibold" style={{ color: "rgba(255,90,31,0.8)" }}>Growth analytics</p>
               </div>
             </div>
             <div className="ab-img sm:col-span-2 rounded-2xl overflow-hidden h-56 sm:h-72 relative" style={{ opacity: 0 }}>
               <img
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1000&q=85&auto=format&fit=crop"
+                src="/generated_image/aerial view of a single lit room inside a dark stone.jpeg"
                 alt="Modern workspace"
                 className="w-full h-full object-cover"
-                style={{ filter: "brightness(0.55) saturate(0.75)" }}
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
               <div className="absolute bottom-5 left-6">
                 <p className="text-[10px] tracking-widest uppercase font-semibold" style={{ color: "rgba(255,90,31,0.8)" }}>How we work</p>
               </div>
@@ -381,12 +434,13 @@ export default function AboutPage() {
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
-                href="/#audit"
+                href="#"
+                onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event("open-audit-modal")); }}
                 className="inline-flex items-center gap-2 rounded-full pl-6 pr-2 py-2.5 text-sm font-semibold transition-all duration-300 hover:gap-3"
-                style={{ background: "linear-gradient(120deg, #0E0E0E, #FF5A1F)", color: "#FFF5F0", border: "1px solid rgba(255,90,31,0.4)" }}
+                style={{ background: "linear-gradient(120deg, #0E0E0E, #FF5A1F)", color: "#FFF5F0" }}
               >
                 Claim Free Audit
-                <span className="flex items-center justify-center w-9 h-9 rounded-full" style={{ background: "rgba(255,245,240,0.1)" }}>
+                <span className="flex items-center justify-center w-9 h-9 rounded-full" style={{ background: "rgba(0,0,0,0.15)" }}>
                   <RiArrowRightLine size={16} />
                 </span>
               </Link>

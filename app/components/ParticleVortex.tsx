@@ -217,14 +217,15 @@ export default function ParticleVortex() {
         {/* CTA buttons */}
         <div className="audit-cta flex flex-col sm:flex-row items-center gap-3" style={{ opacity: 0 }}>
           <a
-            href="#contact"
-            className="group inline-flex items-center gap-2 rounded-full pl-6 pr-2 py-2 font-semibold text-sm transition-all duration-300 hover:gap-3"
-            style={{ background: "linear-gradient(120deg, #0E0E0E, #FF5A1F)", color: "#FFF5F0", border: "1px solid rgba(255,90,31,0.4)" }}
+            href="#"
+            onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event("open-audit-modal")); }}
+            className="group inline-flex items-center gap-3 rounded-full pl-6 pr-1.5 py-1.5 font-semibold text-sm transition-all duration-300 hover:gap-4"
+            style={{ background: "linear-gradient(120deg, #0E0E0E, #FF5A1F)", color: "#FFF5F0" }}
           >
             Claim Free Audit
             <span
               className="flex items-center justify-center w-9 h-9 rounded-full transition-transform duration-300 group-hover:scale-110"
-              style={{ background: "rgba(255,245,240,0.1)" }}
+              style={{ background: "rgba(0,0,0,0.15)" }}
             >
               <RiArrowRightLine size={16} style={{ color: "#FFF5F0" }} />
             </span>

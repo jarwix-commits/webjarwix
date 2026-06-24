@@ -160,13 +160,12 @@ export default function Services() {
             style={{ opacity: 0 }}
           >
             <img
-              src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1000&q=85&auto=format&fit=crop"
+              src="/generated_image/tiny figure seated at a single glowing screen on a dark.jpeg"
               alt="Growth analytics"
               className="absolute inset-0 w-full h-full object-cover"
-              style={{ filter: "brightness(0.55) saturate(0.8)" }}
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/42 via-black/10 to-transparent" />
             <div
               className="absolute inset-0"
               style={{ background: "linear-gradient(135deg, transparent 50%, rgba(255,90,31,0.12))" }}

@@ -8,6 +8,10 @@ import {
   RiArrowRightLine,
   RiCheckLine,
 } from "@remixicon/react";
+import ServicesHero from "./ServicesHero";
+import AnimatedServiceHeading from "./AnimatedServiceHeading";
+import AnimatedServiceImage from "./AnimatedServiceImage";
+import AuditModalTrigger from "../components/AuditModalTrigger";
 
 export const metadata: Metadata = {
   title: "Services — Jarwix",
@@ -33,7 +37,7 @@ const services = [
     ],
     stat: { value: "3.2×", label: "Average ROAS improvement" },
     image:
-      "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=900&q=80&auto=format&fit=crop",
+      "/generated_image/lone marketer on dark floating island, single tablet glowing amber, vast dark space, one beam of light upward, isometric aerial, minimal.jpeg",
   },
   {
     number: "02",
@@ -52,7 +56,7 @@ const services = [
     ],
     stat: { value: "↑220%", label: "Average organic traffic growth" },
     image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=80&auto=format&fit=crop",
+      "/generated_image/single glowing wireframe structure rising from dark ocean, one tiny figure beside it, amber light, vast empty sky, cinematic aerial.jpeg",
   },
   {
     number: "03",
@@ -71,7 +75,7 @@ const services = [
     ],
     stat: { value: "100+", label: "Brands designed & launched" },
     image:
-      "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=900&q=80&auto=format&fit=crop",
+      "/generated_image/artist standing before single enormous blank canvas glowing amber, dark studio, minimal.jpeg",
   },
   {
     number: "04",
@@ -90,7 +94,7 @@ const services = [
     ],
     stat: { value: "↓68%", label: "Reduction in manual work hours" },
     image:
-      "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=900&q=80&auto=format&fit=crop",
+      "/generated_image/lone robotic arm emerging from dark void, single glowing amber.jpeg",
   },
 ];
 
@@ -100,71 +104,30 @@ export default function ServicesPage() {
 
       {/* ── Hero ───────────────────────────────────────────────────── */}
       <section className="relative min-h-[60vh] flex flex-col justify-end px-4 sm:px-8 md:px-12 pb-16 sm:pb-24 pt-32 sm:pt-40 overflow-hidden">
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse 80% 60% at 60% 40%, rgba(255,90,31,0.07) 0%, transparent 70%)",
-          }}
-        />
-        <div className="bg-noise absolute inset-0 opacity-[0.08] pointer-events-none" />
-
-        <div className="relative z-10 max-w-7xl mx-auto w-full">
-          <p
-            className="text-[10px] tracking-[0.22em] uppercase font-semibold mb-5"
-            style={{ color: "#FF5A1F" }}
-          >
-            What we offer
-          </p>
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
-            <h1
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.88]"
-              style={{ fontFamily: '"Hanson Bold", serif', color: "#FFF5F0" }}
-            >
-              Growth
-              <br />
-              services.
-              <br />
-              <span style={{ color: "#FF5A1F" }}>Built different.</span>
-            </h1>
-            <div className="max-w-md">
-              <p
-                className="text-sm sm:text-base leading-relaxed mb-6"
-                style={{ color: "rgba(255,245,240,0.55)" }}
-              >
-                Four interconnected service pillars — each one powered by AI,
-                strategy, and execution — designed to work together and compound
-                your growth.
-              </p>
-              <div className="flex items-center gap-3">
-                <Link
-                  href="/#contact"
-                  className="inline-flex items-center gap-2 rounded-full pl-5 pr-2 py-2 text-xs font-semibold transition-all duration-300 hover:gap-3"
-                  style={{
-                    background: "linear-gradient(120deg, #0E0E0E, #FF5A1F)",
-                    color: "#FFF5F0",
-                    border: "1px solid rgba(255,90,31,0.4)",
-                  }}
-                >
-                  Start a project
-                  <span
-                    className="flex items-center justify-center w-7 h-7 rounded-full"
-                    style={{ background: "rgba(255,245,240,0.1)" }}
-                  >
-                    <RiArrowRightLine size={13} />
-                  </span>
-                </Link>
-                <Link
-                  href="/#audit"
-                  className="text-xs font-semibold transition-colors duration-200 hover:opacity-100"
-                  style={{ color: "rgba(255,245,240,0.45)" }}
-                >
-                  Free audit →
-                </Link>
-              </div>
-            </div>
-          </div>
+        
+        {/* Full-bleed background image for the Services index page */}
+        <div className="absolute inset-0 pointer-events-none">
+          <img
+            src="/generated_image/lone engineer on dark hilltop, single massive glowing machine rising behind them, amber and gold light, epic scale, vast sky, isometric aerial..jpg"
+            alt="Growth Services"
+            className="w-full h-full object-cover object-center"
+            style={{ filter: "brightness(0.7) saturate(0.8)" }}
+            loading="eager"
+          />
+          {/* Left-heavy dark overlay — keeps text readable, reveals image right */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: "linear-gradient(to right, rgba(14,14,14,0.98) 0%, rgba(14,14,14,0.92) 30%, rgba(14,14,14,0.65) 60%, rgba(14,14,14,0.2) 100%)",
+            }}
+          />
+          {/* Top + bottom fades */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black" />
         </div>
+
+        <div className="bg-noise absolute inset-0 opacity-[0.08] pointer-events-none mix-blend-overlay" />
+
+        <ServicesHero />
       </section>
 
       {/* ── Service Sections ───────────────────────────────────────── */}
@@ -223,15 +186,7 @@ export default function ServicesPage() {
                   >
                     {service.tagline}
                   </p>
-                  <h2
-                    className="text-4xl sm:text-5xl md:text-6xl leading-[0.9] mb-6"
-                    style={{
-                      fontFamily: '"Hanson Bold", serif',
-                      color: "#FFF5F0",
-                    }}
-                  >
-                    {service.title}
-                  </h2>
+                  <AnimatedServiceHeading title={service.title} />
                   <p
                     className="text-sm sm:text-base leading-relaxed mb-8 max-w-lg"
                     style={{ color: "rgba(255,245,240,0.55)" }}
@@ -292,13 +247,13 @@ export default function ServicesPage() {
                       style={{
                         background: "linear-gradient(120deg, #0E0E0E, #FF5A1F)",
                         color: "#FFF5F0",
-                        border: "1px solid rgba(255,90,31,0.35)",
+                        
                       }}
                     >
                       Explore service
                       <span
                         className="flex items-center justify-center w-7 h-7 rounded-full"
-                        style={{ background: "rgba(255,245,240,0.1)" }}
+                        style={{ background: "rgba(0,0,0,0.15)" }}
                       >
                         <RiArrowRightLine size={13} />
                       </span>
@@ -306,36 +261,12 @@ export default function ServicesPage() {
                   </div>
                 </div>
 
-                {/* Image */}
-                <div className="relative rounded-3xl overflow-hidden aspect-[4/3]">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-full object-cover"
-                    style={{ filter: "brightness(0.65) saturate(0.8)" }}
-                    loading="lazy"
-                  />
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, rgba(255,90,31,0.1) 0%, transparent 60%)",
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                  {/* Number watermark */}
-                  <span
-                    className="absolute bottom-4 right-5 select-none pointer-events-none"
-                    style={{
-                      fontFamily: '"Hanson Bold", serif',
-                      fontSize: "clamp(4rem, 10vw, 8rem)",
-                      lineHeight: 1,
-                      color: "rgba(255,90,31,0.1)",
-                    }}
-                  >
-                    {service.number}
-                  </span>
-                </div>
+                {/* Animated Image Component */}
+                <AnimatedServiceImage
+                  src={service.image}
+                  alt={service.title}
+                  number={service.number}
+                />
               </div>
             </div>
           </section>
@@ -372,23 +303,14 @@ export default function ServicesPage() {
               In 30 minutes we'll map your biggest growth opportunities across all
               four service pillars — no commitment required.
             </p>
-            <Link
-              href="/#audit"
+            <AuditModalTrigger
               className="inline-flex items-center gap-2 rounded-full pl-6 pr-2 py-2.5 text-sm font-semibold transition-all duration-300 hover:gap-3"
               style={{
                 background: "linear-gradient(120deg, #0E0E0E, #FF5A1F)",
                 color: "#FFF5F0",
-                border: "1px solid rgba(255,90,31,0.4)",
+                
               }}
-            >
-              Claim Free Audit
-              <span
-                className="flex items-center justify-center w-9 h-9 rounded-full"
-                style={{ background: "rgba(255,245,240,0.1)" }}
-              >
-                <RiArrowRightLine size={16} />
-              </span>
-            </Link>
+            />
           </div>
         </div>
       </section>

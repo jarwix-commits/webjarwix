@@ -129,7 +129,6 @@ export default function ServicePage({ data }: { data: ServicePageData }) {
             src={data.heroImage}
             alt={data.title}
             className="w-full h-full object-cover object-center"
-            style={{ filter: "brightness(0.6) saturate(0.75)" }}
             loading="eager"
           />
           {/* Left-heavy dark overlay — keeps text readable, reveals image right */}
@@ -140,7 +139,7 @@ export default function ServicePage({ data }: { data: ServicePageData }) {
             }}
           />
           {/* Top + bottom fades */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/85" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-black/42" />
         </div>
 
         {/* Noise */}
@@ -149,7 +148,7 @@ export default function ServicePage({ data }: { data: ServicePageData }) {
         {/* Top bar: back link + badge — absolute so it never pushes content */}
         <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-5 sm:px-8 md:px-12 pt-24 sm:pt-28">
           <Link
-            href="/#services"
+            href="/services"
             className="sp-number inline-flex items-center gap-1.5 text-xs transition-colors duration-200"
             style={{ color: "rgba(255,245,240,0.45)", opacity: 0 }}
             onMouseEnter={(e) => (e.currentTarget.style.color = "#FFF5F0")}
@@ -224,13 +223,13 @@ export default function ServicePage({ data }: { data: ServicePageData }) {
                   style={{
                     background: "linear-gradient(120deg, #0E0E0E, #FF5A1F)",
                     color: "#FFF5F0",
-                    border: "1px solid rgba(255,90,31,0.4)",
+                    
                   }}
                 >
                   Start with this service
                   <span
                     className="flex items-center justify-center w-8 h-8 rounded-full transition-transform duration-300 group-hover:scale-110"
-                    style={{ background: "rgba(255,245,240,0.1)" }}
+                    style={{ background: "rgba(0,0,0,0.15)" }}
                   >
                     <RiArrowRightLine size={14} style={{ color: "#FFF5F0" }} />
                   </span>
@@ -420,18 +419,19 @@ export default function ServicePage({ data }: { data: ServicePageData }) {
               Claim your free 30-minute growth audit and we'll map out exactly how we'll deliver results for your business.
             </p>
             <Link
-              href="/#audit"
-              className="group inline-flex items-center gap-2 rounded-full pl-6 pr-2 py-2 font-semibold text-sm transition-all duration-300 hover:gap-3"
+              href="#"
+              onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event("open-audit-modal")); }}
+              className="group inline-flex items-center gap-3 rounded-full pl-6 pr-1.5 py-1.5 font-semibold text-sm transition-all duration-300 hover:gap-4"
               style={{
                 background: "linear-gradient(120deg, #0E0E0E, #FF5A1F)",
                 color: "#FFF5F0",
-                border: "1px solid rgba(255,90,31,0.4)",
+                
               }}
             >
               Claim Free Audit
               <span
                 className="flex items-center justify-center w-9 h-9 rounded-full transition-transform duration-300 group-hover:scale-110"
-                style={{ background: "rgba(255,245,240,0.1)" }}
+                style={{ background: "rgba(0,0,0,0.15)" }}
               >
                 <RiArrowRightLine size={16} style={{ color: "#FFF5F0" }} />
               </span>

@@ -13,7 +13,7 @@ const data = {
   description:
     "We run AI-powered campaigns across every major channel — social, search, email, and messaging — designed to generate leads, reduce cost-per-acquisition, and compound results over time.",
   iconName: "megaphone" as const,
-  heroImage: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=1000&q=85&auto=format&fit=crop",
+  heroImage: "/generated_image/lone figure standing on a dark floating rock island in deep space, holding a glowing tablet,.jpeg",
   color: "#FF5A1F",
   what: [
     {

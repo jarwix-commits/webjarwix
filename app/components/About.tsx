@@ -217,23 +217,21 @@ export default function About() {
           <div className="about-images grid grid-cols-1 sm:grid-cols-3 gap-3 mb-10 sm:mb-14">
             <div className="about-img sm:col-span-2 rounded-2xl overflow-hidden h-52 sm:h-64 relative" style={{ opacity: 0 }}>
               <img
-                src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=1000&q=85&auto=format&fit=crop"
+                src="/generated_image/small team of three figures huddled around a single glowing.jpeg"
                 alt="Team working"
                 className="w-full h-full object-cover"
-                style={{ filter: "brightness(0.75) saturate(0.9)" }}
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
             </div>
             <div className="about-img sm:col-span-1 rounded-2xl overflow-hidden h-52 sm:h-64 relative" style={{ opacity: 0 }}>
               <img
-                src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&q=85&auto=format&fit=crop"
+                src="/generated_image/two figures standing in front of a single illuminated.jpeg"
                 alt="Strategy session"
                 className="w-full h-full object-cover"
-                style={{ filter: "brightness(0.7) saturate(0.85)" }}
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
             </div>
           </div>
 

@@ -3,9 +3,11 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { RiArrowRightLine } from "@remixicon/react";
+import Link from "next/link";
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const CHARS = "JARWIX".split("");
 
@@ -14,7 +16,7 @@ export default function Hero() {
   const charsRef = useRef<(HTMLSpanElement | null)[]>([]);
   const taglineRef = useRef<HTMLParagraphElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
-  const ctaRef = useRef<HTMLAnchorElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
   const asteriskRef = useRef<HTMLSpanElement>(null);
 
   useGSAP(
@@ -88,7 +90,7 @@ export default function Hero() {
         <div className="noise-overlay absolute inset-0 opacity-[0.65] mix-blend-overlay pointer-events-none" />
 
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/75" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/37" />
 
         {/* Hero Content — Bottom Aligned */}
         <div className="absolute bottom-0 left-0 right-0 z-10 p-5 sm:p-7 md:p-10">
@@ -148,29 +150,27 @@ export default function Hero() {
                 systems built for results.
               </p>
 
-              <a
-                ref={ctaRef}
-                href="#audit"
-                className="group inline-flex items-center gap-2 rounded-full pl-5 pr-1.5 py-1.5 transition-all duration-300 hover:gap-3"
-                style={{
-                  background: "linear-gradient(120deg, #0E0E0E, #FF5A1F)",
-                  border: "1px solid rgba(255,90,31,0.4)",
-                  opacity: 0,
-                }}
-              >
-                <span
-                  className="text-sm font-semibold"
-                  style={{ color: "#FFF5F0" }}
+              <div ref={ctaRef} className="hero-cta" style={{ opacity: 0 }}>
+                <Link
+                  href="#"
+                  onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event("open-audit-modal")); }}
+                  className="group inline-flex items-center gap-3 rounded-full pl-6 pr-1.5 py-1.5 font-semibold text-sm transition-all duration-300 hover:gap-4"
+                  style={{
+                    background: "linear-gradient(120deg, #0E0E0E, #FF5A1F)",
+                    color: "#FFF5F0",
+                    }}
                 >
-                  Get Free Audit
-                </span>
-                <span
-                  className="flex items-center justify-center w-8 h-8 rounded-full transition-transform duration-300 group-hover:scale-110"
-                  style={{ background: "rgba(255,245,240,0.1)" }}
-                >
-                  <RiArrowRightLine size={16} style={{ color: "#FFF5F0" }} />
-                </span>
-              </a>
+                  <span className="text-sm font-semibold tracking-widest uppercase">
+                    Claim Free Audit
+                  </span>
+                  <span
+                    className="flex items-center justify-center w-8 h-8 rounded-full transition-transform duration-300 group-hover:scale-110"
+                    style={{ background: "rgba(0,0,0,0.15)" }}
+                  >
+                    <RiArrowRightLine size={15} style={{ color: "#FFF5F0" }} />
+                  </span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

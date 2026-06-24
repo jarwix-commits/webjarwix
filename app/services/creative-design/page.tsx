@@ -13,7 +13,7 @@ const data = {
   description:
     "We create brand identities and visual systems that make ambitious businesses impossible to ignore — from logo and style guide through to motion graphics, social creatives, and pitch decks.",
   iconName: "pen-nib" as const,
-  heroImage: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1000&q=85&auto=format&fit=crop",
+  heroImage: "/generated_image/artist floating in dark void holding single glowing color palette, amber light, minimal composition, vast empty space.jpeg",
   color: "#FF5A1F",
   what: [
     {

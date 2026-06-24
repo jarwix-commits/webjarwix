@@ -13,7 +13,7 @@ const data = {
   description:
     "We design and develop high-performance websites that convert visitors into customers, then optimise them to rank on page one. Every site we build is fast, accessible, and engineered for leads.",
   iconName: "global" as const,
-  heroImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1000&q=85&auto=format&fit=crop",
+  heroImage: "/generated_image/single glowing wireframe structure rising from dark ocean, one tiny figure beside it, amber light, vast empty sky, cinematic aerial.jpeg",
   color: "#FF5A1F",
   what: [
     {
