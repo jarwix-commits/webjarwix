@@ -135,33 +135,33 @@ export default function BentoGallery() {
           ref={gridRef}
           className="bento-flip-grid bento-final grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5"
         >
-          {/* ── 100+ stat ── mobile col1 row1 */}
+          {/* ── AI-Powered stat ── mobile col1 row1 */}
           <div
             className="bg-card bfc-stat1 rounded-2xl flex flex-col justify-between p-4 sm:p-5
                         h-28 col-start-1 row-start-1"
             style={{ background: card, border, opacity: 0 }}
           >
             <span className="text-[10px] tracking-widest uppercase font-semibold" style={{ color: "rgba(255,90,31,0.5)" }}>
-              Clients
+              Approach
             </span>
             <div>
-              <p className="text-4xl sm:text-5xl font-bold leading-none mb-1" style={statGrad}>100+</p>
-              <p className="text-[10px]" style={{ color: "rgba(255,245,240,0.45)" }}>US · UK · India</p>
+              <p className="text-lg sm:text-xl font-bold leading-tight mb-1" style={statGrad}>AI-First Strategy</p>
+              <p className="text-[10px]" style={{ color: "rgba(255,245,240,0.45)" }}>Built for results</p>
             </div>
           </div>
 
-          {/* ── 3+ stat ── mobile col2 row1 */}
+          {/* ── Global stat ── mobile col2 row1 */}
           <div
             className="bg-card bfc-stat3 rounded-2xl flex flex-col justify-between p-4 sm:p-5
                         h-28 col-start-2 row-start-1"
             style={{ background: card, border, opacity: 0 }}
           >
             <span className="text-[10px] tracking-widest uppercase font-semibold" style={{ color: "rgba(255,90,31,0.5)" }}>
-              Years
+              Reach
             </span>
             <div>
-              <p className="text-4xl sm:text-5xl font-bold leading-none mb-1" style={statGrad}>3+</p>
-              <p className="text-[10px]" style={{ color: "rgba(255,245,240,0.45)" }}>Delivering growth</p>
+              <p className="text-lg sm:text-xl font-bold leading-tight mb-1" style={statGrad}>Global Markets</p>
+              <p className="text-[10px]" style={{ color: "rgba(255,245,240,0.45)" }}>US · UK · India</p>
             </div>
           </div>
 
@@ -186,7 +186,7 @@ export default function BentoGallery() {
               </div>
               <p className="uppercase text-xs font-semibold leading-tight"
                 style={{ fontFamily: '"Hanson Bold", serif', color: "#FFF5F0" }}>Digital Marketing</p>
-              <p className="text-[10px] mt-0.5" style={{ color: "rgba(255,245,240,0.55)" }}>AI-powered campaigns</p>
+              <p className="text-[10px] mt-0.5" style={{ color: "rgba(255,245,240,0.55)" }}>AI-powered</p>
             </div>
           </div>
 
@@ -265,7 +265,7 @@ export default function BentoGallery() {
             </div>
           </div>
 
-          {/* ── 24/7 stat ── mobile full-width row5 */}
+          {/* ── Always On stat ── mobile full-width row5 */}
           <div
             className="bg-card bfc-stat247 rounded-2xl flex items-center justify-between px-5
                         sm:flex-col sm:items-start sm:justify-between sm:p-5
@@ -273,7 +273,7 @@ export default function BentoGallery() {
             style={{ background: card, border, opacity: 0 }}
           >
             <div className="sm:hidden w-1 h-6 rounded-full" style={{ background: accent }} />
-            <p className="text-3xl sm:text-5xl font-bold leading-none" style={statGrad}>24/7</p>
+            <p className="text-base sm:text-lg font-bold leading-tight" style={statGrad}>Always On</p>
             <p className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "rgba(255,245,240,0.55)" }}>
               Systems running
             </p>

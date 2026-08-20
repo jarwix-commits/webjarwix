@@ -154,7 +154,7 @@ export default function WorkGallery() {
                 fill
                 className="object-cover z-0"
                 priority={isFeatured}
-                sizes={isFeatured ? "100vw" : "(max-width: 768px) 100vw, 33vw"}
+                sizes={isFeatured ? "(max-width: 768px) 100vw, 50vw" : "(max-width: 768px) 100vw, 33vw"}
               />
 
               <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent z-10" />
@@ -194,7 +194,7 @@ export default function WorkGallery() {
                   fill
                   className="object-cover pointer-events-none z-30"
                   priority
-                  sizes="100vw"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               )}
             </div>

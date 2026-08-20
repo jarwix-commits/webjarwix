@@ -30,11 +30,11 @@ const serviceLinks = [
 ];
 
 const socialLinks = [
-  { label: "Instagram", icon: RiInstagramLine, href: "https://instagram.com" },
-  { label: "LinkedIn", icon: RiLinkedinBoxLine, href: "https://linkedin.com" },
-  { label: "X (Twitter)", icon: RiTwitterXLine, href: "https://x.com" },
-  { label: "YouTube", icon: RiYoutubeLine, href: "https://youtube.com" },
-  { label: "Facebook", icon: RiFacebookLine, href: "https://facebook.com" },
+  { label: "Instagram", icon: RiInstagramLine, href: "https://www.instagram.com/_jarwix_" },
+  { label: "LinkedIn", icon: RiLinkedinBoxLine, href: "https://www.linkedin.com/company/jarwix/" },
+  { label: "X (Twitter)", icon: RiTwitterXLine, href: "https://x.com/InfoJarwix" },
+  { label: "YouTube", icon: RiYoutubeLine, href: "https://youtube.com/@jarwix-info" },
+  { label: "Facebook", icon: RiFacebookLine, href: "https://www.facebook.com/jarwix" },
 ];
 
 export default function Footer() {

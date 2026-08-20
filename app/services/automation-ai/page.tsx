@@ -29,7 +29,7 @@ const data = {
       body: "WhatsApp Business API integration with automated broadcasts, drip sequences, chatbots, and two-way conversation management.",
     },
     {
-      title: "Google Sheets & Data Automation",
+      title: "Spreadsheet & Data Automation",
       body: "Automated data pipelines, reporting dashboards, and workflow triggers connecting your spreadsheets to every tool in your stack.",
     },
     {

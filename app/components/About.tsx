@@ -8,9 +8,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const stats = [
-  { value: 3, suffix: "+", label: "Years delivering growth" },
-  { value: 100, suffix: "+", label: "Clients served" },
-  { value: 3, suffix: "", label: "Markets: US · UK · India" },
+  { value: "AI-First", suffix: "", label: "Strategy & execution" },
+  { value: "Global", suffix: "", label: "Markets: US · UK · India" },
+  { value: "Scalable", suffix: "", label: "Marketing + Web + AI" },
 ];
 
 const pillars = [
@@ -61,12 +61,14 @@ export default function About() {
         const el = counterRefs.current[i];
         if (!el) return;
 
+        const isNumeric = typeof stat.value === "number";
+
         ScrollTrigger.create({
           trigger: el,
           start: "top 80%",
           once: true,
           onEnter: () => {
-            if (prefersReduced) {
+            if (!isNumeric || prefersReduced) {
               el.textContent = `${stat.value}${stat.suffix}`;
               return;
             }
@@ -188,7 +190,7 @@ export default function About() {
                   }}
                 >
                   <span ref={(el) => { counterRefs.current[i] = el; }}>
-                    0{stat.suffix}
+                    {stat.value}{stat.suffix}
                   </span>
                 </p>
                 <p
@@ -206,11 +208,12 @@ export default function About() {
             className="about-para text-sm sm:text-base max-w-3xl leading-relaxed mb-14 sm:mb-16"
             style={{ color: "rgba(255,245,240,0.55)", opacity: 0 }}
           >
-            Over the last three years, we have helped ambitious businesses
-            across the US, UK, and India grow online — combining engineering
-            precision with marketing intuition. From AI-powered ad campaigns to
-            fully automated CRM systems, we build growth engines that run 24/7.
-            No jargon. No inflated fees. Just results that speak for themselves.
+            We are Jarwix — an AI-powered growth agency built for ambitious
+            businesses across the US, UK, and India. We combine engineering
+            precision with marketing intuition to build full-stack growth
+            systems. From AI-powered ad campaigns to fully automated workflows,
+            we deliver results that scale. No jargon. No inflated fees. Just
+            outcomes that speak for themselves.
           </p>
 
           {/* Image gallery */}

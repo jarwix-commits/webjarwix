@@ -12,6 +12,7 @@ import {
   RiLinkedinBoxLine,
   RiTwitterXLine,
   RiYoutubeLine,
+  RiFacebookLine,
 } from "@remixicon/react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -234,10 +235,11 @@ export default function Contact() {
               </p>
               <div className="flex flex-wrap gap-2">
                 {[
-                  { label: "Instagram", icon: RiInstagramLine, href: "#" },
-                  { label: "LinkedIn", icon: RiLinkedinBoxLine, href: "#" },
-                  { label: "X", icon: RiTwitterXLine, href: "#" },
-                  { label: "YouTube", icon: RiYoutubeLine, href: "#" },
+                  { label: "Instagram", icon: RiInstagramLine, href: "https://www.instagram.com/_jarwix_" },
+                  { label: "LinkedIn", icon: RiLinkedinBoxLine, href: "https://www.linkedin.com/company/jarwix/" },
+                  { label: "X", icon: RiTwitterXLine, href: "https://x.com/InfoJarwix" },
+                  { label: "YouTube", icon: RiYoutubeLine, href: "https://youtube.com/@jarwix-info" },
+                  { label: "Facebook", icon: RiFacebookLine, href: "https://www.facebook.com/jarwix" },
                 ].map(({ label, icon: Icon, href }) => (
                   <a
                     key={label}

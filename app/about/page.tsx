@@ -11,9 +11,9 @@ import { RiArrowRightLine, RiCheckLine } from "@remixicon/react";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const stats = [
-  { value: 3, suffix: "+", label: "Years delivering growth" },
-  { value: 100, suffix: "+", label: "Clients worldwide" },
-  { value: 3, suffix: "", label: "Markets: US · UK · India" },
+  { value: "AI-First", suffix: "", label: "Strategy & execution" },
+  { value: "Global", suffix: "", label: "Markets: US · UK · India" },
+  { value: "Scalable", suffix: "", label: "Marketing + Web + AI" },
 ];
 
 const values = [
@@ -40,10 +40,10 @@ const values = [
 ];
 
 const milestones = [
-  { year: "2021", event: "Founded in India with a focus on performance marketing for D2C brands." },
-  { year: "2022", event: "Expanded into Web & SEO, launching our first international clients in the UK." },
-  { year: "2023", event: "Launched our Automation & AI division. Crossed 50+ active clients." },
-  { year: "2024", event: "Opened operations in the US market. Surpassed 100 clients served globally." },
+  { year: "Day 1", event: "Founded with a clear mission: build AI-powered growth systems for ambitious businesses." },
+  { year: "Vision", event: "Expanding across US, UK, and India — bringing enterprise-grade AI to growing brands." },
+  { year: "Now", event: "Launching our full suite: Digital Marketing, Web & SEO, Creative Design, and Automation & AI." },
+  { year: "Next", event: "Scaling client results globally with AI-native systems that run, learn, and grow 24/7." },
 ];
 
 export default function AboutPage() {
@@ -94,11 +94,16 @@ export default function AboutPage() {
       stats.forEach((stat, i) => {
         const el = counterRefs.current[i];
         if (!el) return;
+        const isNumeric = typeof stat.value === "number";
         ScrollTrigger.create({
           trigger: el,
           start: "top 82%",
           once: true,
           onEnter: () => {
+            if (!isNumeric) {
+              el.textContent = `${stat.value}${stat.suffix}`;
+              return;
+            }
             const counter = { val: 0 };
             gsap.to(counter, {
               val: stat.value,

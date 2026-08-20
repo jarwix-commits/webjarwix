@@ -98,7 +98,7 @@ export default function MultiStepAuditForm({ onClose, isModal = false }: MultiSt
         </span>
       </div>
 
-      <form onSubmit={handleSubmit} className="flex flex-col relative min-h-[300px]">
+      <form onSubmit={handleSubmit} className="flex flex-col relative w-full">
         <AnimatePresence mode="wait">
           {step === 1 && (
             <motion.div
@@ -107,7 +107,7 @@ export default function MultiStepAuditForm({ onClose, isModal = false }: MultiSt
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
-              className="flex flex-col gap-4 absolute inset-0"
+              className="flex flex-col gap-4 w-full"
             >
               <h3 className="text-2xl font-bold text-[#FFF5F0] mb-1 uppercase" style={{ fontFamily: '"Hanson Bold", serif' }}>Let's Get Started</h3>
               <p className="text-sm text-[rgba(255,245,240,0.5)] mb-2">First, tell us who we're speaking with.</p>
@@ -161,7 +161,7 @@ export default function MultiStepAuditForm({ onClose, isModal = false }: MultiSt
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
-              className="flex flex-col gap-4 absolute inset-0"
+              className="flex flex-col gap-4 w-full"
             >
               <h3 className="text-2xl font-bold text-[#FFF5F0] mb-1 uppercase" style={{ fontFamily: '"Hanson Bold", serif' }}>Digital Footprint</h3>
               <p className="text-sm text-[rgba(255,245,240,0.5)] mb-2">Where can we find your business right now?</p>
@@ -206,7 +206,7 @@ export default function MultiStepAuditForm({ onClose, isModal = false }: MultiSt
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
-              className="flex flex-col gap-4 absolute inset-0"
+              className="flex flex-col gap-4 w-full"
             >
               <h3 className="text-2xl font-bold text-[#FFF5F0] mb-1 uppercase" style={{ fontFamily: '"Hanson Bold", serif' }}>Your Goals</h3>
               <p className="text-sm text-[rgba(255,245,240,0.5)] mb-2">What's holding you back from the next level?</p>
@@ -235,7 +235,7 @@ export default function MultiStepAuditForm({ onClose, isModal = false }: MultiSt
         </AnimatePresence>
 
         {/* Navigation Buttons */}
-        <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between">
+        <div className="mt-8 flex items-center justify-between w-full">
           {step > 1 ? (
             <button
               type="button"
